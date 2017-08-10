@@ -65,6 +65,23 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: jane
 
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  Tag: /tags
+  Github: https://github.com/rowe
+rss: /atom.xml
+
+# Content
+excerpt_link: More...
+fancybox: true
+
+# Miscellaneous
+google_analytics:
+favicon: /favicon.png
+
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
