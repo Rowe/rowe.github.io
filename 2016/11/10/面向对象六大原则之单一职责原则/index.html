@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>面向对象六大原则之单一职责原则 | 弹指之间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="面向对象六大原则在此之前，有一点需要大家知道，熟悉这些原则并不是说你写出的程序就一定灵活、清晰，只是为你的优秀代码之路铺上了一层栅栏，在这些原则的指导下你才能避免陷入一些常见的代码泥沼，从而让你专心写出优秀的东西。下面我们就以Android网络框架SimpleNet为例来学习这六大面向对象的基本原则，体会这些原则在开发过程中带来的强大能量。 1　单一职责原则单一职责原则的英文名称是Single R">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象六大原则之单一职责原则">
+<meta property="og:url" content="http://rowe.github.io/2016/11/10/面向对象六大原则之单一职责原则/index.html">
+<meta property="og:site_name" content="弹指之间">
+<meta property="og:description" content="面向对象六大原则在此之前，有一点需要大家知道，熟悉这些原则并不是说你写出的程序就一定灵活、清晰，只是为你的优秀代码之路铺上了一层栅栏，在这些原则的指导下你才能避免陷入一些常见的代码泥沼，从而让你专心写出优秀的东西。下面我们就以Android网络框架SimpleNet为例来学习这六大面向对象的基本原则，体会这些原则在开发过程中带来的强大能量。 1　单一职责原则单一职责原则的英文名称是Single R">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-09T06:34:12.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象六大原则之单一职责原则">
+<meta name="twitter:description" content="面向对象六大原则在此之前，有一点需要大家知道，熟悉这些原则并不是说你写出的程序就一定灵活、清晰，只是为你的优秀代码之路铺上了一层栅栏，在这些原则的指导下你才能避免陷入一些常见的代码泥沼，从而让你专心写出优秀的东西。下面我们就以Android网络框架SimpleNet为例来学习这六大面向对象的基本原则，体会这些原则在开发过程中带来的强大能量。 1　单一职责原则单一职责原则的英文名称是Single R">
+  
+    <link rel="alternative" href="/atom.xml" title="弹指之间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-面向对象六大原则之单一职责原则" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      面向对象六大原则之单一职责原则
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/11/10/面向对象六大原则之单一职责原则/" class="article-date">
+  <time datetime="2016-11-10T06:31:59.000Z" itemprop="datePublished">2016-11-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/转载文章/">转载文章</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="面向对象六大原则"><a href="#面向对象六大原则" class="headerlink" title="面向对象六大原则"></a>面向对象六大原则</h2><p>在此之前，有一点需要大家知道，熟悉这些原则并不是说你写出的程序就一定灵活、清晰，只是为你的优秀代码之路铺上了一层栅栏，在这些原则的指导下你才能避免陷入一些常见的代码泥沼，从而让你专心写出优秀的东西。<br>下面我们就以Android网络框架SimpleNet为例来学习这六大面向对象的基本原则，体会这些原则在开发过程中带来的强大能量。</p>
+<h2 id="1-单一职责原则"><a href="#1-单一职责原则" class="headerlink" title="1　单一职责原则"></a>1　单一职责原则</h2><p>单一职责原则的英文名称是Single Responsibility Principle，简称是SRP，简单地说就是一个类只做一件事。这个设计原则备受争议却又极其重要。只要你想和别人争执、怄气或者是吵架，这个原则是屡试不爽的。因为单一职责的划分界限并不是如马路上的行车道那么清晰，很多时候都是需要靠个人经验来界定。当然，最大的问题就是对职责的定义，什么是类的职责，以及怎么划分类的职责。<br>试想一下，如果你遵守了这个原则，那么你的类就会划分得很细，每个类都有比较单一的职责，这不就是高内聚、低耦合么！当然，如何界定类的职责这需要你的个人经验了。<br>在SimpleNet中，我觉得很能够体现SRP原则的就是HttpStack这个类族了。HttpStack定义了一个执行网络请求的接口，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface HttpStack &#123;</span><br><span class="line">　　/**</span><br><span class="line">　　 * 执行Http请求,并且返回一个Response</span><br><span class="line">　　 */</span><br><span class="line">　　public Response performRequest(Request&lt;?&gt; request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上述程序中可以看到，HttpStack只有一个performRequest函数，它的职责就是执行网络请求并且返回一个Response。它的职责很单一，这样在需要修改执行网络请求的相关代码时，只需要修改实现HttpStack接口的类，而不会影响其他的类的代码。如果某个类的职责包含有执行网络请求、解析网络请求、进行gzip压缩、封装请求参数等，那么在你修改某处代码时就必须谨慎，以免修改的代码影响了其他的功能。当你修改的代码能够基本上不影响其他的功能。这就在一定程度上保证了代码的可维护性。注意，单一职责原则并不是说一个类只有一个函数，而是说这个类中的函数所做的工作是高度相关的，也就是高内聚。HttpStack抽象了执行网络请求的具体过程，接口简单清晰，也便于扩展。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ol>
+<li>类的复杂性降低，实现什么职责都有清晰明确的定义。</li>
+<li>可读性提高，复杂性降低，那当然可读性提高了。</li>
+<li>可维护性提高，可读性提高，那当然更容易维护了。</li>
+<li>变更引起的风险降低，变更是必不可少的，如果接口的单一职责做得好，一个接口修改只对相应的实现类有影响，对其他的接口无影响，这对系统的扩展性、维护性都有非常大的帮助。</li>
+</ol>
+<p>本文节选自《Android开发进阶：从小工到专家》</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/11/やはり男性に思ってる以上に女性の買い物意欲に高い/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          やはり男性に思ってる以上に女性の買い物意欲に高い
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/01/13/近頃にしてるゲームー閃の軌跡/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">近頃にしてるゲームー閃の軌跡</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 Rowe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
